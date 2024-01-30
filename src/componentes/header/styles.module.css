@@ -1,0 +1,55 @@
+.header {
+    display: flex;
+    width: 100%;
+    height: 76px;
+    background: pink;
+    justify-content: center;
+    align-items: center;
+}
+.content {
+    padding: 0 18px;
+    width: 100%;
+    max-width: 1024px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.content a {
+    text-decoration: none;
+}
+.logo {
+    color: #fff;
+    font-size: 32px;
+}
+.logo span {
+    color: red;
+    font-weight: bold;
+    padding-left: 2px;
+}
+.loginButton {
+    background: #00c1c4;
+    color: #fff;
+    padding: 8px 32px;
+    border-radius: 4px;
+    transition: all 0.5s; 
+    font-weight: bold;
+    cursor: pointer;
+}
+.loginButton:hover {
+    transform: scale(1.08);
+}
+.nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+.link {
+    color: orange;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 4px 14px;
+    transition: all 0.5s;
+    background: #f1f1f1;
+    border-radius: 4px;
+    margin: 0 14px;
+}
