@@ -1,0 +1,52 @@
+.container {
+    width: 100%;
+    max-width: 1024px;
+    margin: 40px auto 0 auto; /* centralizado*/
+    display: flex;
+    flex-direction: column; /*conteúdo em baixo do outro*/
+    align-items: center;
+}
+.main {
+    width: 100%;
+}
+.main h1 {
+   margin-bottom: 14px;
+}
+.task {
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    padding: 14px;
+    line-height: 150%; /*altura do texto*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.task p {
+    white-space: pre-wrap; /*quebrar a linha*/
+    width: 100%;
+}
+.commentsContainer {
+    margin: 18px 0;
+    width: 100%;
+    max-width: 1024px;
+}
+.button {
+    border-radius: 4px;
+    background: #00c1c4;
+    color: #fff;
+    padding: 12px 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    font-size: 18px;
+    margin: 40px auto 0 auto;
+}
+.button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+.commentsContainer h2 {
+    margin: 14px 0;
+}
