@@ -50,3 +50,23 @@
 .commentsContainer h2 {
     margin: 14px 0;
 }
+.comment {
+    border-radius: 4px;
+    border: 1px solid #eee;
+    padding: 14px;
+    margin-bottom: 14px;
+}
+.headComment {
+    display: flex;
+    align-items: center;
+}
+.commentsLabel {
+    background: #eee;
+    padding: 4px 8px;
+    margin-right: 8px;
+    border-radius: 4px;
+}
+.comment {
+    margin-top: 14px;
+    white-space: pre-wrap;
+}

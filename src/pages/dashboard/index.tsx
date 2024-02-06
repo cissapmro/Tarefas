@@ -190,6 +190,7 @@ export default function Dashboard({ user }: HomeProps) {
 }
 
 //"requisição" é a solicitação enviada ao servidor
+//passa pelo lado do servidor e depois para o browser.
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const session = await getSession({ req });
   // console.log(session);
@@ -212,3 +213,4 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     },
   };
 };
+

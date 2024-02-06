@@ -2,9 +2,16 @@ import styles from "../../styles/home.module.css";
 import Image from "next/image";
 import heroImage from "../../public/assets/hero.png";
 import Head from "next/head";
+import { GetStaticProps } from "next";
+import { collection, getDoc, getDocs } from "firebase/firestore";
+import { db } from "../services/firebaseConnection";
 
+interface HomePosts {
+  posts: number;
+  comments: number;
+}
 
-export default function Home() {
+export default function Home({ posts, comments}: HomePosts) {
   return (
    <div className={styles.container}>
     <Head>
@@ -25,13 +32,31 @@ export default function Home() {
     </h1>
     <div className={styles.infoContent}>
       <section className={styles.box}>
-          <span>12 posts</span>
+          <span>{posts} Posts</span>
       </section>
       <section className={styles.box}>
-          <span>14 posts</span>
+          <span>{comments} Comentários</span>
       </section>
     </div>
  </main>
    </div>
   );
 }
+
+//PAGINA ESTÁTICA - pega os dados do banco
+export const getStaticProps: GetStaticProps = async() => {
+
+  const commentRef = collection(db, "comments");
+  const commentSnapshot = await getDocs(commentRef);
+
+  const postRef = collection(db, "tarefas");
+  const postSnapshot = await getDocs(postRef);
+
+  return {
+    props: {
+      posts: postSnapshot.size || 0,
+      comments: commentSnapshot.size || 0,
+    },
+    revalidate: 60 //revalidada a cada 60 segundos
+  };
+};

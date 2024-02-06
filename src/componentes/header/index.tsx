@@ -24,7 +24,9 @@ export function Header() {
           {status === "loading" ? (
             <></>
           ) : session ? (
-            <button className={styles.loginButton} onClick={() => signOut()}>
+            <button className={styles.loginButton} onClick={() =>  signOut()
+            //  console.log("sessão logout:", session); 
+            }>
               Olá {session?.user?.name}
             </button>
           ) : (

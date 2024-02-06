@@ -8,7 +8,8 @@ import {
     collection,
     where,
     addDoc,
-    query
+    query,
+    deleteDoc
 
 } from "firebase/firestore";
 import { db } from "@/src/services/firebaseConnection";
@@ -44,6 +45,7 @@ export const Task = ({ item, allComments }: TaskProps) => {
 
     const [comments, setComments] = useState(allComments || []);
 
+    //BOTÃO DE SUBMIT
     const handleComment = async(event: FormEvent) => {
       //  alert('teste');
       event.preventDefault();
@@ -51,19 +53,47 @@ export const Task = ({ item, allComments }: TaskProps) => {
         if(!session?.user?.name || !session?.user?.email) return;
 
         try{
+            //CADASTRA NO BANCO DE DADOS
             const docRef = await addDoc(collection(db, 'comments'), {
                 comment: input,
                 created: new Date(),
                 user: session?.user?.email,
                 name: session?.user?.name,
                 taskId: item?.taskId
-            })
-             
+            });
+
+            //OBJETO COM OS DADOS
+            const data = {
+                id: docRef.id,
+                comment: input,
+                user: session?.user?.email,
+                name: session?.user?.name,
+                taskId: item?.taskId
+            }
+            //ATUALIZA O ARRAY DE COMENTÁRIOS PARA NÃO PRECISAR ATUALIZAR A PÁGINA E VER TODOS OS COMENTÁRIOS.
+            setComments((oldItems) => [...oldItems, data]);
             setInput('');
 
         } catch(error) {
             console.log(error);
         }
+    }       
+
+    //DELETAR COMENTÁRIO
+    const handleDeleteComment = async(id: string) => {
+
+       try {
+        const docRef = doc(db, 'comments', id);
+        await deleteDoc(docRef);
+
+        const deleteComment = comments.filter(items => (items.id !== id));
+
+       // console.log(deleteComment);
+        setComments(deleteComment);
+
+       } catch (error){
+        console.log(error);
+       }
     }
 
     return(
@@ -97,12 +127,16 @@ export const Task = ({ item, allComments }: TaskProps) => {
                     <span>Nenhum comentário.</span>
                     )}
                     {comments.map((item) => (
-                    <article key={item.id} className={styles.comments}>
-                        <div className={styles.headComments}>
+                    <article key={item.id} className={styles.comment}>
+                        <div className={styles.headComment}>
                             <label className={styles.commentsLabel}>{item.name}</label>
-                            <button>
-                                <FaTrash size={18} color="orange" />
-                            </button>
+                            {item.user === session?.user?.email && (
+                                <button className={styles.buttonTrash}
+                                onClick={() => handleDeleteComment(item.id)}
+                                >
+                                    <FaTrash size={18} color="orange" />
+                                </button>
+                            )}
                         </div>
                         <p>{item.comment}</p>
                     </article>
